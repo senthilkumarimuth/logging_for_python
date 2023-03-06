@@ -1,7 +1,7 @@
 import logging
 FORMATTER = "%(asctime)s — %(name)s — %(levelname)s — %(funcName)s:%(lineno)d — %(message)s"
 # create logger
-logger = logging.getLogger('Logging_for_python')
+logger = logging.getLogger('Python app logger')
 logger.setLevel(logging.DEBUG)
 
 # create console handler and set level to debug
