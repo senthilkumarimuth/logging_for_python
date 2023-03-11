@@ -5,30 +5,16 @@ This module has factory design pattern for python logging
 import logging
 
 
-class Singleton:
-    __instance = None
-
-    @staticmethod
-    def getInstance():
-        """ Static access method. """
-        if Singleton.__instance == None:
-            Singleton()
-        return Singleton.__instance
-
-    def __init__(self):
-       """ Virtually private constructor. """
-       if Singleton.__instance != None:
-          raise Exception("This class is a singleton!")
-       else:
-          Singleton.__instance = self
-
+class Singleton(object):
+  def __new__(cls):
+    if not hasattr(cls, 'instance'):
+      cls.instance = super(Singleton, cls).__new__(cls)
+    return cls.instance
 
 class CustomLogging(Singleton):
 
     FORMATTER = "%(asctime)s — %(name)s — %(levelname)s — %(funcName)s:%(lineno)d — %(message)s"
 
-    def __init__(self):
-        pass
 
     @classmethod
     def app_logger(cls,app_name,log_level):
@@ -60,20 +46,14 @@ class CustomLogging(Singleton):
         return cls.ch_logger
 
 
-class LoggingFactory():
-
-    def __init__(self):
-        pass
-
-    def Factory(self):
-        """Factory Method"""
-        print("return same instance")
-        return CustomLogging()
-
 if __name__ == "__main__":
-    logger = CustomLogging().app_logger('test', logging.DEBUG)
+    s = CustomLogging()
+    logger = s.app_logger('test', logging.DEBUG)
+    print(id(s))
     logger.debug('app logging message')
-    mod_log = CustomLogging().module_logger(__name__)
+    s1 = CustomLogging()
+    mod_log = s1.module_logger(__name__)
+    print(id(s1))
     mod_log.debug('modulue logging message')
 
 

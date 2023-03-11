@@ -15,7 +15,7 @@ def setup_loging():
     for _handler in flask_logger.handlers:
         flask_logger.removeHandler(_handler)
     flask_logger.name = logger.name
-    flask_logger.addHandler(CustomLogging().ch)
+    flask_logger.addHandler(CustomLogging.ch)
 
 
 setup_loging()
