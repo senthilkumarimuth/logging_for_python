@@ -1,13 +1,13 @@
 # Simple flask app to test logging
-
-from flask import Flask, request, render_template
-from utils.logging.custom_logging import LoggerFactory
 import logging
 import os
+from flask import Flask, request, render_template
+from utils.logging.custom_logging import CustomLogging
+logger = CustomLogging().app_logger('app', logging.DEBUG)
+from common import add
 os.environ["WERKZEUG_RUN_MAIN"] = "true"  # removes message 'started serving APP'
 
-lf = LoggerFactory()
-logger =  lf.app_logger(__file__,'DEBUG')
+
 def setup_loging():
 
     """Remove werkzeug logging handler and add custom logging handler"""
@@ -15,7 +15,7 @@ def setup_loging():
     for _handler in flask_logger.handlers:
         flask_logger.removeHandler(_handler)
     flask_logger.name = logger.name
-    flask_logger.addHandler(logger.__getattribute__('ch'))
+    flask_logger.addHandler(CustomLogging().ch)
 
 
 setup_loging()
@@ -27,6 +27,7 @@ app.logger.disabled = True
 
 @app.route("/")
 def home():
+    add(1,2)
     logger.debug('Checking DEBUG message')
     logger.info('Checking INFO message')
     logger.warning('Checking WARNING message')
@@ -45,4 +46,4 @@ def after_request(response):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
