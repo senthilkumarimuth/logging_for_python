@@ -13,6 +13,3 @@ As shown below, the logging format is same(flask log format also changed) and ca
 
 ![Alt text](./readme_files/logformat.PNG?raw=true "vectorstore")
 
-Todo:
-==============================
-1. child logger for sub modules

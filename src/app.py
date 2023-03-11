@@ -1,7 +1,7 @@
 # Simple flask app to test logging
 import logging
 import os
-from flask import Flask, request, render_template
+from flask import Flask
 from utils.logging.custom_logging import CustomLogging
 logger = CustomLogging().app_logger('PythonLogger', logging.DEBUG)
 from common import add
