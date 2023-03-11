@@ -3,7 +3,7 @@ import logging
 import os
 from flask import Flask, request, render_template
 from utils.logging.custom_logging import CustomLogging
-logger = CustomLogging().app_logger('app', logging.DEBUG)
+logger = CustomLogging().app_logger('PythonLogger', logging.DEBUG)
 from common import add
 os.environ["WERKZEUG_RUN_MAIN"] = "true"  # removes message 'started serving APP'
 
