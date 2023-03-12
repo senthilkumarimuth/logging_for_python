@@ -13,7 +13,8 @@ class Singleton(object):
 
 class CustomLogging(Singleton):
 
-    FORMATTER = "%(asctime)s — %(name)s — %(levelname)s — %(funcName)s:%(lineno)d — %(message)s"
+    #FORMATTER = "%(asctime)s — %(name)s — %(levelname)s — %(funcName)s:%(lineno)d — %(message)s"
+    FORMATTER = "%(asctime)s | %(process)d | %(name)s | %(funcName)s:%(lineno)d | %(levelname)s | %(message)s"
 
 
     @classmethod
