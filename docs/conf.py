@@ -231,7 +231,7 @@ man_pages = [
 texinfo_documents = [
     ('index', 'logging_with_python', u'logging_with_python Documentation',
      u"senthilkumar", 'logging_with_python',
-     'logging framework', 'Miscellaneous'),
+     'log_utils framework', 'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.

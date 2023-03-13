@@ -4,7 +4,7 @@ setup(
     name='src',
     packages=find_packages(),
     version='0.1.0',
-    description='logging framework',
+    description='log_utils framework',
     author='senthilkumar',
     license='MIT',
 )

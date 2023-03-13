@@ -1,16 +1,18 @@
-# Simple flask app to test logging
+# Simple flask app to test log_utils
 import logging
 import os
 from flask import Flask
-from utils.logging.custom_logging import CustomLogging
-logger = CustomLogging().app_logger('PythonLogger', logging.DEBUG)
+from utils.log_utils.custom_logging import CustomLogging
 from common import add
-os.environ["WERKZEUG_RUN_MAIN"] = "true"  # removes message 'started serving APP'
+#CustomLogging().set_appname_loglevel()
 
+logger = CustomLogging().app_logger()
+
+os.environ["WERKZEUG_RUN_MAIN"] = "true"  # removes message 'started serving APP'
 
 def setup_loging():
 
-    """Remove werkzeug logging handler and add custom logging handler"""
+    """Remove werkzeug log_utils handler and add custom log_utils handler"""
     flask_logger = logging.getLogger('werkzeug')  # grabs underlying WSGI logger
     for _handler in flask_logger.handlers:
         flask_logger.removeHandler(_handler)

@@ -2,7 +2,7 @@
 
 """
 
-from utils.logging.custom_logging import CustomLogging
+from utils.log_utils.custom_logging import CustomLogging
 logger = CustomLogging.module_logger(__name__)
 
 def add(a,b):
