@@ -2,15 +2,16 @@
 import logging
 import os
 from flask import Flask
-from utils.log_utils.custom_logging import CustomLogging
+import sys
+print(sys.path)
+from custom_utils.custom_logging import CustomLogging
 from common import add
-#CustomLogging().set_appname_loglevel()
 
 logger = CustomLogging().app_logger()
 
 os.environ["WERKZEUG_RUN_MAIN"] = "true"  # removes message 'started serving APP'
 
-def setup_loging():
+def modify_werkzeug_loging():
 
     """Remove werkzeug log_utils handler and add custom log_utils handler"""
     flask_logger = logging.getLogger('werkzeug')  # grabs underlying WSGI logger
@@ -20,7 +21,7 @@ def setup_loging():
     flask_logger.addHandler(CustomLogging.ch)
 
 
-setup_loging()
+modify_werkzeug_loging()
 
 logger.debug('Starting Flask APP')
 app = Flask(__name__)
