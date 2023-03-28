@@ -1,0 +1,5 @@
+[project]
+name = "CusLogFramework"
+[environments]
+   [environments.development]
+   loglevel = "DEBUG"

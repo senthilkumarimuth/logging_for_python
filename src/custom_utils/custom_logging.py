@@ -3,11 +3,26 @@ This module has factory design pattern for python log_utils
 """
 
 import logging
-import os
-try:
-    from log_formatter import FORMATTER
-except ImportError:
-    from .log_formatter import FORMATTER
+
+
+FORMAT_STRING = "%(asctime)s | %(process)d | %(name)s | %(funcName)s:%(lineno)d | %(levelname)s | %(message)s"
+
+
+class OneLineExceptionFormatter(logging.Formatter):
+    def formatException(self, exc_info):
+        result = super(
+            OneLineExceptionFormatter,
+            self).formatException(exc_info)
+        return repr(result)  # or format into one line however you want to
+
+    def format(self, record):
+        s = super(OneLineExceptionFormatter, self).format(record)
+        if record.exc_text:
+            s = s.replace('\n', '') + ' - log formatted by oneliner'
+        return s
+
+
+FORMATTER = OneLineExceptionFormatter(FORMAT_STRING)
 
 
 class Singleton(object):
@@ -23,14 +38,14 @@ class CustomLogging(Singleton):
     @classmethod
     def set_appname_loglevel(cls):
         cls.logger = None
-        if "APP_LOG_LEVEL" in os.environ:
-            cls.log_level = os.getenv("APP_LOG_LEVEL")
-            cls.log_level = eval("logging." + cls.log_level.strip().upper())
-        else:
+        try:
+            from settings.config import config
+            name = config["project"]["name"]
+            cls.app_name = name
+            loglevel = config["environments"]["development"]['loglevel']
+            cls.log_level = eval("logging." + loglevel.strip().upper())
+        except ModuleNotFoundError:
             cls.log_level = logging.DEBUG
-        if "AppName" in os.environ:
-            cls.app_name = os.getenv("AppName")
-        else:
             cls.app_name = "AppLogger"
 
     @classmethod
